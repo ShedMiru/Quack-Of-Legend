@@ -9,6 +9,7 @@ TagManager:
   - Passive
   - EXP
   - EXPRadius
+  - Audio
   layers:
   - Default
   - TransparentFX

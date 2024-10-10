@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class PlayerStatus : MonoBehaviour
 {
     public int hp, maxHp, atk, expCap, exp, lvlCount;
     public float spd, haste;
+    public Slider slideHp;
+    public Slider slideExp;
     private EnemyStatus enemyStatus;
     private PlayerControl playerControl;
     public Animator animation;
     public UnityEvent EXPCollect;
     public UnityEvent lvlUp;
     public UnityEvent playerDead;
+    
 
     void Start()
     {
@@ -23,6 +27,10 @@ public class PlayerStatus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        slideHp.maxValue = maxHp;
+        slideHp.value = hp;
+        slideExp.maxValue = expCap;
+        slideExp.value = exp;
         if (hp <= 0 && playerControl.dead == false)
         {
             playerControl.dead = true;

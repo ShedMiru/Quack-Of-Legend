@@ -39,8 +39,8 @@ public class PlayerControl : MonoBehaviour
 
     void Walk()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
         rb.velocity = new Vector2(moveX * playerStatus.spd, moveY * playerStatus.spd);
 
         if (moveX != 0 || moveY != 0)
