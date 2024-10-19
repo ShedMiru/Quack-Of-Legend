@@ -76,12 +76,12 @@ public class EnemyRangedChef : MonoBehaviour
         else
         {
             animation.speed = 1f;
-            if (playerObject.transform.position.x > transform.position.x)
+            if (playerObject.transform.position.x > transform.position.x && !followBone)
             {
                 transform.localScale = new Vector3(1f, 1f, 1f);
                 moveLeft = false;
             }
-            else if (playerObject.transform.position.x < transform.position.x)
+            else if (playerObject.transform.position.x < transform.position.x && !followBone)
             {
                 transform.localScale = new Vector3(-1f, 1f, 1f);
                 moveLeft = true;
@@ -91,6 +91,16 @@ public class EnemyRangedChef : MonoBehaviour
                 bone = GameObject.Find("Bone(Clone)");
                 transform.position = Vector2.MoveTowards(transform.position, bone.transform.position, enemyStatus.spd * Time.deltaTime);
                 animation.SetBool("Moving", true);
+                if (bone.transform.position.x > transform.position.x)
+                {
+                    transform.localScale = new Vector3(1f, 1f, 1f);
+                    moveLeft = false;
+                }
+                else if (bone.transform.position.x < transform.position.x)
+                {
+                    transform.localScale = new Vector3(-1f, 1f, 1f);
+                    moveLeft = true;
+                }
             }
             else if (!dead)
             {
@@ -152,15 +162,19 @@ public class EnemyRangedChef : MonoBehaviour
     void ThrowSumpit()
     {
         GameObject player = GameObject.Find("Player");
-
-        if (player != null)
+        if (player != null && !followBone)
         {
             GameObject sumpit = Instantiate(sumpitObject);
-
             sumpit.transform.position = transform.position;
-
             Vector2 direction = player.transform.position - sumpit.transform.position;
-
+            sumpit.GetComponent<EnemySumpit>().SetDirection(direction);
+        }
+        else if (followBone)
+        {
+            bone = GameObject.Find("Bone(Clone)");
+            GameObject sumpit = Instantiate(sumpitObject);
+            sumpit.transform.position = transform.position;
+            Vector2 direction = bone.transform.position - sumpit.transform.position;
             sumpit.GetComponent<EnemySumpit>().SetDirection(direction);
         }
     }

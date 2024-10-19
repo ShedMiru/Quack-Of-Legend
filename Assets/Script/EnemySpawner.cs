@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject Enemy1;
     public GameObject Enemy2;
+    public GameObject[] Border;
     public float timeCounter;
     public bool meeleLeft;
     public bool meeleRight;
@@ -74,14 +75,22 @@ public class EnemySpawner : MonoBehaviour
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1.1f, 1.1f));
 
         GameObject enemyM = Instantiate(Enemy1);
-
+        
         switch (Random.Range(1, 5))
         {
             case 1:
                 enemyM.transform.position = new Vector2(max.x, Random.Range(min.y, max.y));
+                while (enemyM.transform.position.y < Border[1].transform.position.y || enemyM.transform.position.y > Border[0].transform.position.y)
+                {
+                    enemyM.transform.position = new Vector2(max.x, Random.Range(min.y, max.y));
+                }
                 break;
             case 2:
                 enemyM.transform.position = new Vector2(min.x, Random.Range(min.y, max.y));
+                while (enemyM.transform.position.y < Border[1].transform.position.y || enemyM.transform.position.y > Border[0].transform.position.y)
+                {
+                    enemyM.transform.position = new Vector2(min.x, Random.Range(min.y, max.y));
+                }
                 break;
             case 3:
                 enemyM.transform.position = new Vector2(Random.Range(min.x, max.x), max.y);
@@ -90,7 +99,6 @@ public class EnemySpawner : MonoBehaviour
                 enemyM.transform.position = new Vector2(Random.Range(min.x, max.x), min.y);
                 break;
         }
-
     }
     void SpawnEnemyR()
     {
@@ -103,9 +111,17 @@ public class EnemySpawner : MonoBehaviour
         {
             case 1:
                 enemyR.transform.position = new Vector2(max.x, Random.Range(min.y, max.y));
+                while (enemyR.transform.position.y < Border[1].transform.position.y || enemyR.transform.position.y > Border[0].transform.position.y)
+                {
+                    enemyR.transform.position = new Vector2(max.x, Random.Range(min.y, max.y));
+                }
                 break;
             case 2:
                 enemyR.transform.position = new Vector2(min.x, Random.Range(min.y, max.y));
+                while (enemyR.transform.position.y < Border[1].transform.position.y || enemyR.transform.position.y > Border[0].transform.position.y)
+                {
+                    enemyR.transform.position = new Vector2(min.x, Random.Range(min.y, max.y));
+                }
                 break;
             case 3:
                 enemyR.transform.position = new Vector2(Random.Range(min.x, max.x), max.y);

@@ -13,7 +13,7 @@ public class EnemyChefM : MonoBehaviour
     public GameObject exp;
     public UnityEvent hitEvent;
 
-    int hp; 
+    int hp;
     public int addKnifeDmg, addFeatherDmg;
 
     public bool moveLeft;
@@ -57,12 +57,12 @@ public class EnemyChefM : MonoBehaviour
         else
         {
             animation.speed = 1f;
-            if (playerObject.transform.position.x > transform.position.x)
+            if (playerObject.transform.position.x > transform.position.x && !followBone)
             {
                 transform.localScale = new Vector3(1f, 1f, 1f);
                 moveLeft = false;
             }
-            else if (playerObject.transform.position.x < transform.position.x)
+            else if (playerObject.transform.position.x < transform.position.x && !followBone)
             {
                 transform.localScale = new Vector3(-1f, 1f, 1f);
                 moveLeft = true;
@@ -72,6 +72,16 @@ public class EnemyChefM : MonoBehaviour
                 bone = GameObject.Find("Bone(Clone)");
                 transform.position = Vector2.MoveTowards(transform.position, bone.transform.position, enemyStatus.spd * Time.deltaTime);
                 animation.SetBool("Moving", true);
+                if (bone.transform.position.x > transform.position.x)
+                {
+                    transform.localScale = new Vector3(1f, 1f, 1f);
+                    moveLeft = false;
+                }
+                else if (bone.transform.position.x < transform.position.x)
+                {
+                    transform.localScale = new Vector3(-1f, 1f, 1f);
+                    moveLeft = true;
+                }
             }
             else if (!dead)
             {
